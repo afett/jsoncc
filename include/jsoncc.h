@@ -241,6 +241,7 @@ public:
 	Array & operator=(Array &&);
 	Array & operator<<(Value const&);
 	Array & operator<<(Value &&);
+	Array & operator<<(Member) = delete;
 
 	size_t size() const;
 	std::vector<Value> elements() const;
