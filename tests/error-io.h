@@ -32,6 +32,7 @@ static inline std::ostream & operator<<(std::ostream & os, Error::Type type)
 	CASE_ERROR_TYPE(Error::BAD_TOKEN_OBJECT_SEP);
 	CASE_ERROR_TYPE(Error::BAD_TOKEN_OBJECT_VALUE);
 	CASE_ERROR_TYPE(Error::BAD_TOKEN_OBJECT_NEXT);
+	CASE_ERROR_TYPE(Error::EMPTY_NAME);
 	CASE_ERROR_TYPE(Error::INTERNAL_ERROR);
 	}
 #undef CASE_ERROR_TYPE

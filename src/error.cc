@@ -31,6 +31,7 @@ static const char *error_message[] = {
 	"bad or missing  value in object member",
 	"expected ',' or '}' after object member",
 	"object contains bad member",
+	"member name is empty",
 	"internal error",
 };
 

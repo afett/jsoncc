@@ -403,6 +403,7 @@ public:
 		BAD_TOKEN_OBJECT_SEP,   /* bad or missing  value in object member */
 		BAD_TOKEN_OBJECT_VALUE, /* expected ',' or '}' after object member */
 		BAD_TOKEN_OBJECT_NEXT,  /* object contains bad member */
+		EMPTY_NAME,             /* the name of the member is empty */
 		INTERNAL_ERROR,         /* internal error */
 	} type;
 

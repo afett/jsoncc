@@ -148,6 +148,14 @@ Transition<ArrayState::State> ArrayState::transitions[SMAX][SMAX] = {
 /* SEND   */ {                                   {0, SERROR}},
 };
 
+std::string validate_name(std::string const& name)
+{
+	if (name.empty()) {
+		JSONCC_THROW(EMPTY_NAME);
+	}
+	return name;
+}
+
 /* State engine config for Json::Object */
 class ObjectState : public ParserState {
 protected:
@@ -168,7 +176,7 @@ protected:
 	void build(State state)
 	{
 		switch (state) {
-		case SNAME:  key = tokenizer.token.str_value; break;
+		case SNAME:  key = validate_name(tokenizer.token.str_value); break;
 		case SVALUE: result << Json::Member(key, parse_value()); break;
 		case SNEXT:  break;
 		case SEND:   break;
