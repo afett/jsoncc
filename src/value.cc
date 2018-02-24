@@ -54,18 +54,9 @@ Value & Value::operator=(Value&& o)
 
 	switch (tag_) {
 	case TAG_INVALID:
-		break;
 	case TAG_TRUE:
-		assert(o.type_.true_);
-		type_.true_ = o.type_.true_;
-		break;
 	case TAG_FALSE:
-		assert(o.type_.false_);
-		type_.false_ = o.type_.false_;
-		break;
 	case TAG_NULL:
-		assert(o.type_.null_);
-		type_.null_ = o.type_.null_;
 		break;
 	case TAG_NUMBER:
 		assert(o.type_.number_);
@@ -103,18 +94,9 @@ void Value::clone(Value const& o)
 
 	switch (tag_) {
 	case TAG_INVALID:
-		break;
 	case TAG_TRUE:
-		assert(o.type_.true_);
-		type_.true_ = o.type_.true_;
-		break;
 	case TAG_FALSE:
-		assert(o.type_.false_);
-		type_.false_ = o.type_.false_;
-		break;
 	case TAG_NULL:
-		assert(o.type_.null_);
-		type_.null_ = o.type_.null_;
 		break;
 	case TAG_NUMBER:
 		assert(o.type_.number_);
@@ -139,11 +121,10 @@ void Value::clear()
 {
 	switch (tag_) {
 	case TAG_INVALID:
-		return;
 	case TAG_TRUE:
 	case TAG_FALSE:
 	case TAG_NULL:
-		break;
+		return;
 	case TAG_NUMBER:
 		assert(type_.number_);
 		delete type_.number_;
@@ -169,23 +150,17 @@ void Value::clear()
 Value::Value(Null const&)
 :
 	tag_(TAG_NULL)
-{
-	type_.null_ = &NullValue;
-}
+{ }
 
 Value::Value(True const&)
 :
 	tag_(TAG_TRUE)
-{
-	type_.true_ = &TrueValue;
-}
+{ }
 
 Value::Value(False const&)
 :
 	tag_(TAG_FALSE)
-{
-	type_.false_ = &FalseValue;
-}
+{ }
 
 Value::Value(Number const& number)
 :
@@ -219,21 +194,18 @@ void Value::set(Null const&)
 {
 	clear();
 	tag_ = TAG_NULL;
-	type_.null_ = &NullValue;
 }
 
 void Value::set(True const&)
 {
 	clear();
 	tag_ = TAG_TRUE;
-	type_.true_ = &TrueValue;
 }
 
 void Value::set(False const&)
 {
 	clear();
 	tag_ = TAG_FALSE;
-	type_.false_ = &FalseValue;
 }
 
 void Value::set(Number const& number)
@@ -272,22 +244,19 @@ Value::Tag Value::tag() const
 Null const& Value::null() const
 {
 	assert(tag_ == TAG_NULL);
-	assert(type_.null_);
-	return *type_.null_;
+	return NullValue;
 }
 
 True const& Value::true_value() const
 {
 	assert(tag_ == TAG_TRUE);
-	assert(type_.true_);
-	return *type_.true_;
+	return TrueValue;
 }
 
 False const& Value::false_value() const
 {
 	assert(tag_ == TAG_FALSE);
-	assert(type_.false_);
-	return *type_.false_;
+	return FalseValue;
 }
 
 Number const& Value::number() const

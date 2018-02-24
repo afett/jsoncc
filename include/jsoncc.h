@@ -173,9 +173,6 @@ private:
 	Tag tag_;
 
 	union Type {
-		True *true_;
-		False *false_;
-		Null *null_;
 		Number *number_;
 		String *string_;
 		Object *object_;
