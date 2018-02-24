@@ -172,12 +172,10 @@ private:
 
 	Tag tag_;
 
-	union Type {
-		Number *number_;
-		String *string_;
-		Object *object_;
-		Array *array_;
-	} type_;
+	std::unique_ptr<Number> number_;
+	std::unique_ptr<String> string_;
+	std::unique_ptr<Object> object_;
+	std::unique_ptr<Array> array_;
 };
 
 class Member {

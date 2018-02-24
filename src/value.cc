@@ -16,9 +16,7 @@ static Null NullValue;
 Value::Value()
 :
 	tag_(TAG_INVALID)
-{
-	memset(&type_, 0, sizeof(Type));
-}
+{ }
 
 Value::Value(Value const& o)
 :
@@ -59,32 +57,29 @@ Value & Value::operator=(Value&& o)
 	case TAG_NULL:
 		break;
 	case TAG_NUMBER:
-		assert(o.type_.number_);
-		type_.number_ = o.type_.number_;
+		assert(o.number_);
+		number_ = std::move(o.number_);
 		break;
 	case TAG_STRING:
-		assert(o.type_.string_);
-		type_.string_ = o.type_.string_;
+		assert(o.string_);
+		string_ = std::move(o.string_);
 		break;
 	case TAG_OBJECT:
-		assert(o.type_.object_);
-		type_.object_ = o.type_.object_;
+		assert(o.object_);
+		object_ = std::move(o.object_);
 		break;
 	case TAG_ARRAY:
-		assert(o.type_.array_);
-		type_.array_ = o.type_.array_;
+		assert(o.array_);
+		array_ = std::move(o.array_);
 		break;
 	}
 
 	o.tag_ = TAG_INVALID;
-	memset(&o.type_, 0, sizeof(Type));
 	return *this;
 }
 
 Value::~Value()
-{
-	clear();
-}
+{ }
 
 void Value::clone(Value const& o)
 {
@@ -99,52 +94,31 @@ void Value::clone(Value const& o)
 	case TAG_NULL:
 		break;
 	case TAG_NUMBER:
-		assert(o.type_.number_);
-		type_.number_ = new Number(*o.type_.number_);
+		assert(o.number_);
+		number_.reset(new Number(*o.number_));
 		break;
 	case TAG_STRING:
-		assert(o.type_.string_);
-		type_.string_ = new String(*o.type_.string_);
+		assert(o.string_);
+		string_.reset(new String(*o.string_));
 		break;
 	case TAG_OBJECT:
-		assert(o.type_.object_);
-		type_.object_ = new Object(*o.type_.object_);
+		assert(o.object_);
+		object_.reset(new Object(*o.object_));
 		break;
 	case TAG_ARRAY:
-		assert(o.type_.array_);
-		type_.array_ = new Array(*o.type_.array_);
+		assert(o.array_);
+		array_.reset(new Array(*o.array_));
 		break;
 	}
 }
 
 void Value::clear()
 {
-	switch (tag_) {
-	case TAG_INVALID:
-	case TAG_TRUE:
-	case TAG_FALSE:
-	case TAG_NULL:
-		return;
-	case TAG_NUMBER:
-		assert(type_.number_);
-		delete type_.number_;
-		break;
-	case TAG_STRING:
-		assert(type_.string_);
-		delete type_.string_;
-		break;
-	case TAG_OBJECT:
-		assert(type_.object_);
-		delete type_.object_;
-		break;
-	case TAG_ARRAY:
-		assert(type_.array_);
-		delete type_.array_;
-		break;
-	}
-
+	number_.reset();
+	string_.reset();
+	object_.reset();
+	object_.reset();
 	tag_ = TAG_INVALID;
-	memset(&type_, 0, sizeof(Type));
 }
 
 Value::Value(Null const&)
@@ -166,28 +140,28 @@ Value::Value(Number const& number)
 :
 	tag_(TAG_NUMBER)
 {
-	type_.number_ = new Number(number);
+	number_.reset(new Number(number));
 }
 
 Value::Value(String const& string)
 :
 	tag_(TAG_STRING)
 {
-	type_.string_ = new String(string);
+	string_.reset(new String(string));
 }
 
 Value::Value(Object const& object)
 :
 	tag_(TAG_OBJECT)
 {
-	type_.object_ = new Object(object);
+	object_.reset(new Object(object));
 }
 
 Value::Value(Array const& array)
 :
 	tag_(TAG_ARRAY)
 {
-	type_.array_ = new Array(array);
+	array_.reset(new Array(array));
 }
 
 void Value::set(Null const&)
@@ -212,28 +186,28 @@ void Value::set(Number const& number)
 {
 	clear();
 	tag_ = TAG_NUMBER;
-	type_.number_ = new Number(number);
+	number_.reset(new Number(number));
 }
 
 void Value::set(String const& string)
 {
 	clear();
 	tag_ = TAG_STRING;
-	type_.string_ = new String(string);
+	string_.reset(new String(string));
 }
 
 void Value::set(Object const& object)
 {
 	clear();
 	tag_ = TAG_OBJECT;
-	type_.object_ = new Object(object);
+	object_.reset(new Object(object));
 }
 
 void Value::set(Array const& array)
 {
 	clear();
 	tag_ = TAG_ARRAY;
-	type_.array_ = new Array(array);
+	array_.reset(new Array(array));
 }
 
 Value::Tag Value::tag() const
@@ -262,29 +236,29 @@ False const& Value::false_value() const
 Number const& Value::number() const
 {
 	assert(tag_ == TAG_NUMBER);
-	assert(type_.number_);
-	return *type_.number_;
+	assert(number_);
+	return *number_;
 }
 
 String const& Value::string() const
 {
 	assert(tag_ == TAG_STRING);
-	assert(type_.string_);
-	return *type_.string_;
+	assert(string_);
+	return *string_;
 }
 
 Array const& Value::array() const
 {
 	assert(tag_ == TAG_ARRAY);
-	assert(type_.array_);
-	return *type_.array_;
+	assert(array_);
+	return *array_;
 }
 
 Object const& Value::object() const
 {
 	assert(tag_ == TAG_OBJECT);
-	assert(type_.object_);
-	return *type_.object_;
+	assert(object_);
+	return *object_;
 }
 
 void ValueFactory<bool>::build(bool const& value, Value & res)
