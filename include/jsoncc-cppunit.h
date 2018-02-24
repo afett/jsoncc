@@ -13,12 +13,15 @@ struct assertion_traits {
 		return Json::equal(l, r);
 	}
 
+// This only runs if a test fails. So exclude it from coverage.
+// LCOV_EXCL_START
 	static std::string toString(T const& v)
 	{
 		std::stringstream os;
 		os << v;
 		return os.str();
 	}
+// LCOV_EXCL_STOP
 };
 
 }
