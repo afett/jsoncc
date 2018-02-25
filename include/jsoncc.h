@@ -156,6 +156,12 @@ public:
 	void set(Object const&);
 	void set(Array const&);
 
+	template <typename T, typename... Args>
+	void make(Args&&... args)
+	{
+		build(std::unique_ptr<T>(new T(std::forward<Args>(args)...)));
+	}
+
 	Tag tag() const;
 
 	True const& true_value() const;
@@ -167,6 +173,11 @@ public:
 	Array const& array() const;
 
 private:
+	void build(std::unique_ptr<Number>);
+	void build(std::unique_ptr<String>);
+	void build(std::unique_ptr<Object>);
+	void build(std::unique_ptr<Array>);
+
 	void clone(Value const&);
 	void clear();
 
@@ -264,24 +275,21 @@ template<> struct ValueFactory<long double> { static void build(long double cons
 template<typename E> struct ValueFactory<std::vector<E> > {
 	static void build(std::vector<E> const& v, Value & res)
 	{
-		Json::Array a(v.begin(), v.end());
-		res.set(a);
+		res.make<Array>(v.begin(), v.end());
 	}
 };
 
 template<typename E> struct ValueFactory<std::list<E> > {
 	static void build(std::list<E> const& v, Value & res)
 	{
-		Json::Array a(v.begin(), v.end());
-		res.set(a);
+		res.make<Array>(v.begin(), v.end());
 	}
 };
 
 template<typename E> struct ValueFactory<std::set<E> > {
 	static void build(std::set<E> const& v, Value & res)
 	{
-		Json::Array a(v.begin(), v.end());
-		res.set(a);
+		res.make<Array>(v.begin(), v.end());
 	}
 };
 
@@ -290,7 +298,7 @@ template<typename T> struct ValueFactory {
 	{
 		std::stringstream ss;
 		operator<<(ss, v);
-		res.set(ss.str());
+		res.make<String>(ss.str());
 	}
 };
 

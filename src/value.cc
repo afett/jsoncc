@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015, 2016, 2017 Andreas Fett. All rights reserved.
+   Copyright (c) 2015 - 2018 Andreas Fett. All rights reserved.
    Use of this source code is governed by a BSD-style
    license that can be found in the LICENSE file.
  */
@@ -210,6 +210,34 @@ void Value::set(Array const& array)
 	array_.reset(new Array(array));
 }
 
+void Value::build(std::unique_ptr<Number> number)
+{
+	clear();
+	tag_ = TAG_NUMBER;
+	number_ = std::move(number);
+}
+
+void Value::build(std::unique_ptr<String> string)
+{
+	clear();
+	tag_ = TAG_STRING;
+	string_ = std::move(string);
+}
+
+void Value::build(std::unique_ptr<Object> object)
+{
+	clear();
+	tag_ = TAG_OBJECT;
+	object_ = std::move(object);
+}
+
+void Value::build(std::unique_ptr<Array> array)
+{
+	clear();
+	tag_ = TAG_ARRAY;
+	array_ = std::move(array);
+}
+
 Value::Tag Value::tag() const
 {
 	return tag_;
@@ -272,57 +300,57 @@ void ValueFactory<bool>::build(bool const& value, Value & res)
 
 void ValueFactory<uint8_t>::build(uint8_t const& value, Value & res)
 {
-	res.set(Number(value));
+	res.make<Number>(value);
 }
 
 void ValueFactory<int8_t>::build(int8_t const& value, Value & res)
 {
-	res.set(Number(value));
+	res.make<Number>(value);
 }
 
 void ValueFactory<uint16_t>::build(uint16_t const& value, Value & res)
 {
-	res.set(Number(value));
+	res.make<Number>(value);
 }
 
 void ValueFactory<int16_t>::build(int16_t const& value, Value & res)
 {
-	res.set(Number(value));
+	res.make<Number>(value);
 }
 
 void ValueFactory<uint32_t>::build(uint32_t const& value, Value & res)
 {
-	res.set(Number(value));
+	res.make<Number>(value);
 }
 
 void ValueFactory<int32_t>::build(int32_t const& value, Value & res)
 {
-	res.set(Number(value));
+	res.make<Number>(value);
 }
 
 void ValueFactory<uint64_t>::build(uint64_t const& value, Value & res)
 {
-	res.set(Number(value));
+	res.make<Number>(value);
 }
 
 void ValueFactory<int64_t>::build(int64_t const& value, Value & res)
 {
-	res.set(Number(value));
+	res.make<Number>(value);
 }
 
 void ValueFactory<float>::build(float const& value, Value & res)
 {
-	res.set(Number(value));
+	res.make<Number>(value);
 }
 
 void ValueFactory<double>::build(double const& value, Value & res)
 {
-	res.set(Number(value));
+	res.make<Number>(value);
 }
 
 void ValueFactory<long double>::build(long double const& value, Value & res)
 {
-	res.set(Number(value));
+	res.make<Number>(value);
 }
 
 }
