@@ -243,6 +243,11 @@ void Value::make_object(std::initializer_list<Member> m)
 	build(std::unique_ptr<Object>(new Object(std::move(m))));
 }
 
+void Value::make_array(std::initializer_list<Value> v)
+{
+	build(std::unique_ptr<Array>(new Array(std::move(v))));
+}
+
 Value::Tag Value::tag() const
 {
 	return tag_;

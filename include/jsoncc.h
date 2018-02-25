@@ -164,6 +164,7 @@ public:
 	}
 
 	void make_object(std::initializer_list<Member>);
+	void make_array(std::initializer_list<Value>);
 
 	Tag tag() const;
 

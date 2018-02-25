@@ -20,6 +20,12 @@ struct baz_object {
 	std::string c;
 };
 
+struct foo_array {
+	int a;
+	bool b;
+	std::string c;
+};
+
 struct bar_array {
 
 	int a;
@@ -109,6 +115,13 @@ template<> struct ValueFactory< ::baz_object> {
 	}
 };
 
+template<> struct ValueFactory< ::foo_array> {
+	static void build(foo_array const& f, Value & res)
+	{
+		res.make_array({f.a, f.b, f.c});
+	}
+};
+
 template<> struct ValueFactory< ::bar_array> {
 	static void build(bar_array const& f, Value & res)
 	{
@@ -145,6 +158,7 @@ private:
 	void test_custom_type_vector();
 	void test_streamable_object();
 	void test_streamable_enum();
+	void test_object_to_array();
 	void test_object_to_array_move();
 	void test_object_to_array_copy();
 
@@ -155,6 +169,7 @@ private:
 	CPPUNIT_TEST(test_custom_type_vector);
 	CPPUNIT_TEST(test_streamable_object);
 	CPPUNIT_TEST(test_streamable_enum);
+	CPPUNIT_TEST(test_object_to_array);
 	CPPUNIT_TEST(test_object_to_array_move);
 	CPPUNIT_TEST(test_object_to_array_copy);
 	CPPUNIT_TEST_SUITE_END();
@@ -293,6 +308,26 @@ void test::test_streamable_enum()
 		"	\"BAZ_3\"\n"
 		"]"
 	);
+	CPPUNIT_ASSERT_EQUAL(expected, ss.str());
+}
+
+void test::test_object_to_array()
+{
+	struct foo_array f;
+	f.a = 42;
+	f.b = false;
+	f.c = "Foo";
+
+	std::stringstream ss;
+	ss << Json::Value(f);
+	std::string expected(
+		"[\n"
+		"	42,\n"
+		"	false,\n"
+		"	\"Foo\"\n"
+		"]"
+	);
+
 	CPPUNIT_ASSERT_EQUAL(expected, ss.str());
 }
 
