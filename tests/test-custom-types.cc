@@ -2,7 +2,7 @@
 
 namespace {
 
-struct foo {
+struct foo_object {
 	int a;
 	bool b;
 	std::string c;
@@ -47,7 +47,7 @@ std::ostream & operator<<(std::ostream & os, ::bar const&)
 	return os << "Bar Object";
 }
 
-std::ostream & operator<<(std::ostream & os, ::foo const&)
+std::ostream & operator<<(std::ostream & os, ::foo_object const&)
 {
 	return os << "Foo Object";
 }
@@ -72,14 +72,14 @@ std::ostream & operator<<(std::ostream & os, ::Baz baz)
 
 namespace Json {
 
-template<> struct ValueFactory< ::foo> {
-	static void build(foo const& f, Value & res)
+template<> struct ValueFactory< ::foo_object> {
+	static void build(foo_object const& f, Value & res)
 	{
-		Json::Object o;
-		o << Json::Member("a", f.a);
-		o << Json::Member("b", f.b);
-		o << Json::Member("c", f.c);
-		res.set(o);
+		// construct Object in place
+		res.make_object({
+			{"a", f.a},
+			{"b", f.b},
+			{"c", f.c}});
 	}
 };
 
@@ -173,7 +173,7 @@ void test::tearDown()
 
 void test::test_custom_type()
 {
-	struct foo f;
+	struct foo_object f;
 	f.a = 42;
 	f.b = false;
 	f.c = "Foo";
@@ -237,14 +237,12 @@ void test::test_custom_type_copy()
 
 void test::test_custom_type_vector()
 {
-	foo f;
+	foo_object f;
 	f.a = 42;
 	f.b = false;
 	f.c = "Foo";
 
-	std::vector<foo> v;
-	v.push_back(f);
-	v.push_back(f);
+	std::vector<foo_object> v{f, f};
 
 	std::stringstream ss;
 	ss << Json::Value(v);

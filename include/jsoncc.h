@@ -102,6 +102,7 @@ private:
 
 template<typename T> struct ValueFactory;
 
+class Member;
 class Object;
 class Array;
 
@@ -161,6 +162,8 @@ public:
 	{
 		build(std::unique_ptr<T>(new T(std::forward<Args>(args)...)));
 	}
+
+	void make_object(std::initializer_list<Member>);
 
 	Tag tag() const;
 
