@@ -177,7 +177,7 @@ protected:
 	{
 		switch (state) {
 		case SNAME:  key = validate_name(tokenizer.token.str_value); break;
-		case SVALUE: result << Json::Member(key, parse_value()); break;
+		case SVALUE: result << Json::Member(std::move(key), parse_value()); break;
 		case SNEXT:  break;
 		case SEND:   break;
 		case SSEP:   break;

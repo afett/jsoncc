@@ -199,6 +199,7 @@ public:
 	Member(Member const&);
 	Member(Member &&);
 	Member(std::string const&, Value const&);
+	Member(std::string &&, Value &&);
 
 	Member & operator=(Member const&);
 	Member & operator=(Member &&);

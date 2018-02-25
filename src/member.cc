@@ -34,6 +34,14 @@ Member::Member(std::string const& key, Value const& value)
 	assert(!key.empty());
 }
 
+Member::Member(std::string && key, Value && value)
+:
+	key_(std::move(key)),
+	value_(std::move(value))
+{
+	assert(!key.empty());
+}
+
 Member & Member::operator=(Member const& o)
 {
 	if (&o != this) {
