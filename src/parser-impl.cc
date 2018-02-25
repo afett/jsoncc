@@ -43,7 +43,7 @@ public:
 			state = transition(T::tokenizer.token.type, state);
 		} while (state != T::SEND);
 
-		return T::result;
+		return std::move(T::result);
 	}
 
 private:
