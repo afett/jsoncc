@@ -183,7 +183,7 @@ void test::test_equality()
 	Json::Object o5;
 	o5 = o4;
 	CPPUNIT_ASSERT_EQUAL(o5, o4);
-	o5 = o5;
+	o5 = *&o5;
 	CPPUNIT_ASSERT_EQUAL(o5, o4);
 }
 

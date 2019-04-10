@@ -103,7 +103,7 @@ void test::test_number()
 	Json::Number n1;
 	n1 = n;
 	CPPUNIT_ASSERT_EQUAL(n, n1);
-	n1 = n1;
+	n1 = *&n1;
 	CPPUNIT_ASSERT_EQUAL(n, n1);
 }
 
@@ -213,7 +213,7 @@ void test::test_string()
 	Json::String s1;
 	s1 = s;
 	CPPUNIT_ASSERT_EQUAL(s, s1);
-	s1 = s1;
+	s1 = *&s1;
 	CPPUNIT_ASSERT_EQUAL(s, s1);
 }
 
