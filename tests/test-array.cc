@@ -150,7 +150,7 @@ void test::test_equality()
 	Json::Array a5;
 	a5 = a4;
 	CPPUNIT_ASSERT_EQUAL(a4, a5);
-	a5 = a5;
+	a5 = *&a5;
 	CPPUNIT_ASSERT_EQUAL(a4, a5);
 }
 
