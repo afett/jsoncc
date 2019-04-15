@@ -9,6 +9,7 @@ dist: xenial
 branches:
   only:
     - master
+    - v1.2.x
 
 before_install:
   - sudo apt-get update -qq
