@@ -59,7 +59,7 @@ class Utf8Stream;
 
 class TokenStream {
 public:
-	TokenStream(Utf8Stream &);
+	explicit TokenStream(Utf8Stream &);
 
 	void scan(); // throws jsonp::Error
 
