@@ -34,7 +34,7 @@ uint64_t make_int(const char *str)
 // POSIX thread local locale setting.
 class AutoLocale {
 public:
-	AutoLocale(const char *name)
+	explicit AutoLocale(const char *name)
 	:
 		locale_(newlocale(LC_ALL_MASK, name, 0)),
 		saved_(uselocale(locale_))

@@ -198,8 +198,8 @@ void test::test_iterators()
 	std::vector<uint32_t> v{1, 2, 3};
 
 	Json::Array a1(v.begin(), v.end());
-	for (auto & v: a1) {
-		CPPUNIT_ASSERT_EQUAL(Json::Value::TAG_NUMBER, v.tag());
+	for (auto & value: a1) {
+		CPPUNIT_ASSERT_EQUAL(Json::Value::TAG_NUMBER, value.tag());
 	}
 }
 
