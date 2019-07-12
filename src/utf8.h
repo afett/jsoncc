@@ -76,11 +76,6 @@ namespace Json {
 
 class utf8validator {
 public:
-	utf8validator()
-	:
-		state_(0)
-	{ }
-
 	bool validate(int c)
 	{
 		return (state_ = next_state(c)) != -1;
@@ -112,7 +107,7 @@ private:
 		return -1;
 	}
 
-	int state_;
+	int state_ = 0;
 };
 
 }
