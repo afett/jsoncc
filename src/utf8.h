@@ -87,7 +87,7 @@ public:
 	}
 
 private:
-	int next_state(unsigned char c)
+	int next_state(unsigned char c) const
 	{
 		switch (state_) {
 		SEQ1(0, EGNAR(0x00, 0x7F))
