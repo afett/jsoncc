@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 - 2018 Andreas Fett. All rights reserved.
+   Copyright (c) 2015 - 2019 Andreas Fett. All rights reserved.
    Use of this source code is governed by a BSD-style
    license that can be found in the LICENSE file.
  */
@@ -253,46 +253,46 @@ Value::Tag Value::tag() const
 	return tag_;
 }
 
-Null const& Value::null() const
+Null Value::null() const
 {
 	assert(tag_ == TAG_NULL);
 	return NullValue;
 }
 
-True const& Value::true_value() const
+True Value::true_value() const
 {
 	assert(tag_ == TAG_TRUE);
 	return TrueValue;
 }
 
-False const& Value::false_value() const
+False Value::false_value() const
 {
 	assert(tag_ == TAG_FALSE);
 	return FalseValue;
 }
 
-Number const& Value::number() const
+Number Value::number() const
 {
 	assert(tag_ == TAG_NUMBER);
 	assert(number_);
 	return *number_;
 }
 
-String const& Value::string() const
+String Value::string() const
 {
 	assert(tag_ == TAG_STRING);
 	assert(string_);
 	return *string_;
 }
 
-Array const& Value::array() const
+Array Value::array() const
 {
 	assert(tag_ == TAG_ARRAY);
 	assert(array_);
 	return *array_;
 }
 
-Object const& Value::object() const
+Object Value::object() const
 {
 	assert(tag_ == TAG_OBJECT);
 	assert(object_);

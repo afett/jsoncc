@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 - 2018 Andreas Fett
+   Copyright (c) 2015 - 2019 Andreas Fett
    All rights reserved.
 
    Redistribution and use in source and binary forms, with or without
@@ -168,13 +168,13 @@ public:
 
 	Tag tag() const;
 
-	True const& true_value() const;
-	False const& false_value() const;
-	Null const& null() const;
-	Number const& number() const;
-	String const& string() const;
-	Object const& object() const;
-	Array const& array() const;
+	True true_value() const;
+	False false_value() const;
+	Null null() const;
+	Number number() const;
+	String string() const;
+	Object object() const;
+	Array array() const;
 
 private:
 	void build(std::unique_ptr<Number>);
