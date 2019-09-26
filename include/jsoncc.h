@@ -26,8 +26,7 @@
 #ifndef JSONCC_H
 #define JSONCC_H
 
-#include <stdint.h>
-
+#include <cstdint>
 #include <list>
 #include <memory>
 #include <set>
