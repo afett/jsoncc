@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 - 2018, Andreas Fett. All rights reserved.
+   Copyright (c) 2015 - 2019, Andreas Fett. All rights reserved.
    Use of this source code is governed by a BSD-style
    license that can be found in the LICENSE file.
 */
@@ -63,10 +63,8 @@ bool equal(Array const& l, Array const& r)
 		return false;
 	}
 
-	using value_eq = bool(*)(Value const&, Value const&);
-	return equal(
-		std::begin(l), std::end(l),
-		std::begin(r), static_cast<value_eq>(equal));
+	return equal(std::begin(l), std::end(l), std::begin(r),
+			[](Value const& l, Value const& r) { return equal(l, r); });
 }
 
 bool equal(Member const& l, Member const& r)
@@ -84,10 +82,8 @@ bool equal(Object const& l, Object const& r)
 		return false;
 	}
 
-	using member_eq = bool(*)(Member const&, Member const&);
-	return is_permutation(
-		std::begin(l), std::end(l),
-		std::begin(r), static_cast<member_eq>(equal));
+	return is_permutation(std::begin(l), std::end(l), std::begin(r),
+			[](Member const& l, Member const& r) { return equal(l, r); });
 }
 
 bool equal(Value const& l, Value const& r)
