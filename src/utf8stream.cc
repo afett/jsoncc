@@ -1,11 +1,10 @@
 /*
-   Copyright (c) 2015, 2016, Andreas Fett. All rights reserved.
+   Copyright (c) 2015 - 2019 Andreas Fett. All rights reserved.
    Use of this source code is governed by a BSD-style
    license that can be found in the LICENSE file.
 */
-#include <inttypes.h>
-
 #include <cassert>
+#include <cinttypes>
 
 #include "utf8stream.h"
 
