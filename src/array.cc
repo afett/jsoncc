@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015, 2016, 2018 Andreas Fett. All rights reserved.
+   Copyright (c) 2015, 2016, 2018, 2021 Andreas Fett. All rights reserved.
    Use of this source code is governed by a BSD-style
    license that can be found in the LICENSE file.
 */
@@ -13,10 +13,10 @@ Array::Array()
 	elements_()
 { }
 
-Array::Array(std::initializer_list<Value> l)
-:
-	elements_(l)
-{ }
+Array make_array(std::initializer_list<Value> l)
+{
+	return Array(std::begin(l), std::end(l));
+}
 
 Array::Array(Array const& o)
 :

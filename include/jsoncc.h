@@ -1,5 +1,5 @@
 /*
-   Copyright (c) 2015 - 2019 Andreas Fett
+   Copyright (c) 2015 - 2019, 2021 Andreas Fett
    All rights reserved.
 
    Redistribution and use in source and binary forms, with or without
@@ -226,7 +226,6 @@ private:
 class Array {
 public:
 	Array();
-	explicit Array(std::initializer_list<Value>);
 	Array(Array const&);
 	Array(Array &&);
 
@@ -251,6 +250,8 @@ public:
 private:
 	std::vector<Value> elements_;
 };
+
+Array make_array(std::initializer_list<Value>);
 
 template<> struct ValueFactory<bool>        { static void build(bool        const&, Value &); };
 template<> struct ValueFactory<uint8_t>     { static void build(uint8_t     const&, Value &); };

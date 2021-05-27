@@ -205,12 +205,12 @@ void test::test_iterators()
 
 void test::test_list_initialization()
 {
-	Json::Array a1{ 1, 2, 3 };
+	auto a1 = Json::make_array({ 1, 2, 3 });
 	for (auto & v: a1) {
 		CPPUNIT_ASSERT_EQUAL(Json::Value::TAG_NUMBER, v.tag());
 	}
 
-	Json::Array a2{ "foo", 2, true };
+	auto a2 = Json::make_array({ "foo", 2, true });
 	auto it = a2.begin();
 	CPPUNIT_ASSERT_EQUAL(Json::Value::TAG_STRING, it->tag());
 	++it;
@@ -223,7 +223,7 @@ void test::test_list_initialization()
 
 void test::test_move()
 {
-	Json::Array a1{ "foo", 2, true };
+	auto a1 = Json::make_array({ "foo", 2, true });
 
 	Json::Array a2(std::move(a1));
 	CPPUNIT_ASSERT(a1.elements().empty());

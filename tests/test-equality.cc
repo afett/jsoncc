@@ -83,12 +83,12 @@ void test::test_string()
 void test::test_array()
 {
 	CPPUNIT_ASSERT(Json::equal(Json::Array(), Json::Array()));
-	CPPUNIT_ASSERT(!Json::equal(Json::Array(), Json::Array{"foo"}));
-	CPPUNIT_ASSERT(Json::equal(Json::Array{"foo"}, Json::Array{"foo"}));
-	CPPUNIT_ASSERT(!Json::equal(Json::Array{"Foo"}, Json::Array{"foo"}));
-	CPPUNIT_ASSERT(Json::equal(Json::Array{"foo", "bar"}, Json::Array{"foo", "bar"}));
-	CPPUNIT_ASSERT(!Json::equal(Json::Array{"foo", "bar"}, Json::Array{"bar", "foo"}));
-	CPPUNIT_ASSERT(!Json::equal(Json::Array{"foo"}, Json::Array{"foo", "foo"}));
+	CPPUNIT_ASSERT(!Json::equal(Json::Array(), Json::make_array({"foo"})));
+	CPPUNIT_ASSERT(Json::equal(Json::make_array({"foo"}), Json::make_array({"foo"})));
+	CPPUNIT_ASSERT(!Json::equal(Json::make_array({"Foo"}), Json::make_array({"foo"})));
+	CPPUNIT_ASSERT(Json::equal(Json::make_array({"foo", "bar"}), Json::make_array({"foo", "bar"})));
+	CPPUNIT_ASSERT(!Json::equal(Json::make_array({"foo", "bar"}), Json::make_array({"bar", "foo"})));
+	CPPUNIT_ASSERT(!Json::equal(Json::make_array({"foo"}), Json::make_array({"foo", "foo"})));
 }
 
 void test::test_object()
